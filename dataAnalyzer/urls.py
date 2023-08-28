@@ -3,6 +3,8 @@ from .views import *
 
 urlpatterns = [
     path('', home),
-    path('create', createWeight),
+    path('createWeight', createWeight),
     path('weight', cattleWeight),
+    path('createExpense', createExpense),
+    path('expense', cattleExpenseWeight),
 ]

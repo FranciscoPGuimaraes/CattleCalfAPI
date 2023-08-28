@@ -12,6 +12,7 @@ class Weighing(models.Model):
         blank=False
     )
 
+
 class Cattle(models.Model):
     id = models.IntegerField(
         null=False,
@@ -33,4 +34,15 @@ class Cattle(models.Model):
         on_delete=models.CASCADE,
         null=True,
         blank=True
+    )
+
+
+class Expense(models.Model):
+    amount = models.FloatField(
+        null=False,
+        blank=False
+    )
+    date = models.DateField(
+        null=False,
+        blank=False
     )
