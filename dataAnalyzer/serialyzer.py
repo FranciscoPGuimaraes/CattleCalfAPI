@@ -14,4 +14,10 @@ class WeightSerializer(serializers.ModelSerializer):
 class ExpenseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Expense
-        fields = ['amount', 'date']
+        fields = ['amount', 'date', 'type_idType']
+
+
+class TypeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Type
+        fields = ['name', 'idType']

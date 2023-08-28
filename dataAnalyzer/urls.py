@@ -7,4 +7,6 @@ urlpatterns = [
     path('weight', cattleWeight),
     path('createExpense', createExpense),
     path('expense', cattleExpenseWeight),
+    path('createType', createExpenseType),
+    path('expenseByType', cattleExpenseByType),
 ]
