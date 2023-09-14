@@ -1,7 +1,6 @@
 """Analyser Views
 @author: Francisco Pereira Guimaraes"""
 import datetime
-from django.shortcuts import render
 import numpy as np
 
 from rest_framework.decorators import api_view
@@ -133,7 +132,7 @@ def cattleExpenseByType(request):
             total = 0
             for e in expenseSerialyzer.data:
                 total += e['amount']
-            expenseByType.append({f'{t["name"]}': total})
+            expenseByType.append({f'{t["name"]}(R$)': total})
         return Response(expenseByType, status.HTTP_200_OK)
 
     except Exception as err:
