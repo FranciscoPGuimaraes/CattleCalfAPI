@@ -62,12 +62,8 @@ WSGI_APPLICATION = 'CattleCalf.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'bd_cc',
-        'USER': 'admin',
-        'PASSWORD': 'senha321',
-        'HOST': 'database-1.cyv4pi9armub.us-east-1.rds.amazonaws.com',
-        'PORT': '3306',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
