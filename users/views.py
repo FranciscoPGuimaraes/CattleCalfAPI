@@ -48,7 +48,6 @@ def login(request):
             password = login.data.get("password")
             user = User.objects.get(email=email)
             userSerializer = LoginSerializer(user)
-
             if user:
                 if check_password(password, userSerializer.data["password"]):
                     return Response(status=status.HTTP_202_ACCEPTED)
