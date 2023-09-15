@@ -9,4 +9,7 @@ urlpatterns = [
     path('expense', cattleExpenseWeight),
     path('createType', createExpenseType),
     path('expenseByType', cattleExpenseByType),
+    path('syncWeights', syncWeights),
+    path('syncExpense', syncExpense),
+    path('syncTypes', syncTypes),
 ]

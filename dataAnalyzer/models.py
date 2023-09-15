@@ -13,7 +13,8 @@ class Weighing(models.Model):
         null=False,
         blank=False
     )
-    date = models.DateField(
+    date = models.CharField(
+        max_length=40,
         null=False,
         blank=False
     )
@@ -32,7 +33,8 @@ class Cattle(models.Model):
         null=False,
         blank=False
     )
-    birthDay = models.DateField(
+    birthDay = models.CharField(
+        max_length=40,
         null=False,
         blank=False
     )
@@ -69,7 +71,8 @@ class Expense(models.Model):
         null=False,
         blank=False
     )
-    date = models.DateField(
+    date = models.CharField(
+        max_length=40,
         null=False,
         blank=False
     )
