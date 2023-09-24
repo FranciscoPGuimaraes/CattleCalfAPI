@@ -12,4 +12,5 @@ urlpatterns = [
     path('syncWeights', syncWeights),
     path('syncExpense', syncExpense),
     path('syncTypes', syncTypes),
+    path('arroba', arroba)
 ]
