@@ -1,5 +1,7 @@
 """Analyser Views
-@author: Francisco Pereira Guimaraes"""
+@author: Francisco Pereira Guimaraes
+@since 05/09/23"""
+
 import datetime
 import numpy as np
 import requests
@@ -142,7 +144,8 @@ def cattleExpenseByType(request):
 
 @api_view(['POST'])
 def syncWeights(request):
-    # Receba os dados do Flutter
+    """Synchronizing Database"""
+
     data = request.data
 
     for item_data in data:
@@ -154,13 +157,15 @@ def syncWeights(request):
         existing_weight, created = Weighing.objects.update_or_create(
             weight=weight,
             date=date,
-            defaults=item_data  # Dados para atualizar ou criar
+            defaults=item_data
         )
 
-    return Response("Sincronização de pesos concluída com sucesso.", status=status.HTTP_201_CREATED)
+    return Response("Weights synchronization completed", status=status.HTTP_201_CREATED)
 
 @api_view(['POST'])
 def syncExpense(request):
+    """Synchronizing Database"""
+
     data = request.data
 
     for item_data in data:
@@ -168,25 +173,23 @@ def syncExpense(request):
         amount = item_data.get('amount')
         type_idType_id = item_data.get('type_idType')
 
-        # Obtenha uma instância válida do modelo Type com base no ID
         try:
             type_instance = Type.objects.get(idType=type_idType_id)
         except Type.DoesNotExist:
-            # Lidar com o caso em que o Type com o ID especificado não existe
             return Response(f"Type com ID {type_idType_id} não existe.", status=status.HTTP_400_BAD_REQUEST)
 
-        # Crie ou atualize o registro de Expense
         existing_expense, created = Expense.objects.update_or_create(
             date=date,
             type_idType=type_instance,
             defaults={'amount': amount}
         )
 
-    return Response("Sincronização de gastos concluída com sucesso.", status=status.HTTP_201_CREATED)
+    return Response("Expense synchronization completed", status=status.HTTP_201_CREATED)
 
 @api_view(['POST'])
 def syncTypes(request):
-    # Receba os dados do Flutter
+    """Synchronizing Database"""
+
     data = request.data
 
     for item_data in data:
@@ -194,33 +197,7 @@ def syncTypes(request):
 
         existing_expense, created = Type.objects.update_or_create(
             name=name,
-            defaults=item_data  # Dados para atualizar ou criar
+            defaults=item_data
         )
 
-    return Response("Sincronização de tipos concluída com sucesso.", status=status.HTTP_201_CREATED)
-
-@api_view(['GET'])
-def arroba(request):
-    try:
-        url = 'https://www.melhorcambio.com/boi-hoje'
-        headers = {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'
-        }
-        response = requests.get(url, headers=headers)
-
-        if response.status_code == 200:
-            soup = BeautifulSoup(response.text, 'html.parser')
-
-            price_element = soup.find('input', {"id": "comercial"})
-            value_str = price_element['value']
-
-            try:
-                value_float = float(value_str.replace(',', '.'))  # Substitui ',' por '.' e converte para float
-                return Response({"Price of Arroba": value_float})
-            except ValueError:
-                return Response({"Error": "Could not access the page."}, status=500)
-
-        else:
-            return Response({"Error": "Could not access the page."}, status=500)
-    except Exception as err:
-        return Response({"Exception": str(err)}, status=500)
+    return Response("Type synchronization completed", status=status.HTTP_201_CREATED)
