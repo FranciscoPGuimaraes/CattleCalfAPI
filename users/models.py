@@ -29,3 +29,8 @@ class User(models.Model):
         null=True,
         blank=True
     )
+    address = models.CharField(
+        max_length=200,
+        null=True,
+        blank=True
+    )
