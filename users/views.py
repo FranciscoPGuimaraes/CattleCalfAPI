@@ -50,7 +50,7 @@ def login(request):
             userSerializer = LoginSerializer(user)
             if user:
                 if check_password(password, userSerializer.data["password"]):
-                    return Response(status=status.HTTP_202_ACCEPTED)
+                    return Response({"cpf": userSerializer.data["cpf"]}, status=status.HTTP_202_ACCEPTED)
                 return Response({"error": "Incorrect password"}, status=status.HTTP_401_UNAUTHORIZED)
             return Response({"error": "Email not found"}, status=status.HTTP_404_NOT_FOUND)
         return Response(login.errors, status=status.HTTP_400_BAD_REQUEST)
