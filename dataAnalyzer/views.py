@@ -201,3 +201,28 @@ def syncTypes(request):
         )
 
     return Response("Type synchronization completed", status=status.HTTP_201_CREATED)
+@api_view(['GET'])
+def arroba(request):
+    try:
+        url = 'https://www.melhorcambio.com/boi-hoje'
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36'
+        }
+        response = requests.get(url, headers=headers)
+
+        if response.status_code == 200:
+            soup = BeautifulSoup(response.text, 'html.parser')
+
+            price_element = soup.find('input', {"id": "comercial"})
+            value_str = price_element['value']
+
+            try:
+                value_float = float(value_str.replace(',', '.'))  # Substitui ',' por '.' e converte para float
+                return Response({"Price of Arroba": value_float})
+            except ValueError:
+                return Response({"Error": "Could not access the page."}, status=500)
+
+        else:
+            return Response({"Error": "Could not access the page."}, status=500)
+    except Exception as err:
+        return Response({"Exception": str(err)}, status=500)
