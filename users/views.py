@@ -47,7 +47,7 @@ def login(request):
             email = login.data.get("email")
             password = login.data.get("password")
             user = User.objects.get(email=email)
-            userSerializer = LoginSerializer(user)
+            userSerializer = UserSerializer(user)
             if user:
                 if check_password(password, userSerializer.data["password"]):
                     return Response({"cpf": userSerializer.data["cpf"]}, status=status.HTTP_202_ACCEPTED)

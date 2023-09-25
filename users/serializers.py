@@ -15,4 +15,4 @@ class UserSerializer(serializers.ModelSerializer):
 class LoginSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['email', 'password', 'cpf']
+        fields = ['email', 'password']
